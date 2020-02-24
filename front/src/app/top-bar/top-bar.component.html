@@ -1,0 +1,69 @@
+<!-- <div id="top-bar">
+
+  <div *ngIf='(this.username) && (this.username !==" ") '>
+  </div>
+
+  <div class="title">
+      <h1>{{title}}</h1>
+  </div>
+
+  <div *ngIf='(this.username) && (this.username !==" ") '  class="appartionUser"> 
+      <span class="username">
+          <h2>Username</h2>
+          <h3>{{this.username}}</h3>  
+      </span>Ò
+  
+      <span class="counter">
+          <h2>Clicks</h2>
+          <h3>{{this.score}}</h3> 
+      </span>
+      
+      <span class="victories">
+          <h2>Victoires</h2>
+          <h3>{{this.victories}}</h3> 
+      </span>
+  </div>
+</div> -->
+<div id="header">
+<mat-grid-tile-header id="top-bar">
+
+  <!-- INFOS USER -->
+  <mat-grid-list cols="9" rowHeight = "6em" class="tile-header"  *ngIf='(this.username) && (this.username !==" ") '>
+      <!-- <mat-grid-tile class="appartionUser" >
+        
+      </mat-grid-tile> -->
+
+      <mat-grid-tile class="appartionUser" colspan="3"> <!--Teste l'existence d'un currentUser-->
+        <img id="username" class="imageUser" [attr.src]="'https://robohash.org/'+this.username"/>
+        <h2>Username :</h2>
+        <h3>{{this.username}}</h3>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="title" colspan="3">
+        <h1>{{title}}</h1> <!--Title-->
+      </mat-grid-tile>
+
+      <mat-grid-tile class="appartionUser" >
+        <h3></h3><!--div vide pour équilibrer l'espace-->
+      </mat-grid-tile>
+
+      <mat-grid-tile class="appartionUser" >
+        <h2>Score :</h2>
+        <h3>{{this.score}}</h3>
+      </mat-grid-tile>
+
+      <mat-grid-tile class="appartionUser">
+        <h2>Victories :</h2>
+        <h3>{{this.victories}}</h3>
+      </mat-grid-tile>    
+  </mat-grid-list> 
+
+  <!-- PAS INFOS USER -->
+  <mat-grid-list cols="1" rowHeight = "6em" class="tile-header"  *ngIf='(!this.username) || (this.username ===" ") '>
+    <mat-grid-tile class="title">
+      <h1>{{title}}</h1> <!--Title-->
+    </mat-grid-tile> 
+  </mat-grid-list> 
+
+</mat-grid-tile-header>
+</div>

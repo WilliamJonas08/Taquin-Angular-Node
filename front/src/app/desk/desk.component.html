@@ -1,0 +1,54 @@
+
+<div id="container">
+
+    <div id="grid">
+        <div *ngFor= "let p of pieces"  (click)="mouvement(p.id)">
+            <!-- [id]="p.id" inutile ficanelement-->
+
+            <app-piece [piece]="p"></app-piece>
+            
+        </div>
+    </div>
+
+    <div id="modele">
+        <img id= "img" src='/assets/logorofim.jpg'>
+    </div>
+
+    <div>
+        <div id="buttons">
+            <!--ATTENTION: le CSS pourrait disparaitre suite à l'ajout d'un selecteur ng-component-->
+                    <!-- <span><button *ngIf="victoire==false" id="count">Nombre de clics : {{transfertDataService.counter}}</button></span>
+                    <br><br> -->
+            <div><button *ngIf="victoire==false" (click)="melange()">RESTART</button></div>
+            <div><button *ngIf="victoire==false" (click)="tricher()">TRICHER</button></div>
+            <div id="message">
+                <h2>Message :</h2>
+                <p class="message">{{store.message}}</p>
+            </div>
+        </div>
+            <!-- <div><button *ngIf="victoire==true" routerLink="/end">PAR ICI CHAMPION</button></div> -->
+
+        <!--Utilisé pour centrer le bloc "message" -->
+        <!-- <div id="block-message"> 
+            <div id="message">
+                <h2>Message :</h2>
+                <p class="message">{{transfertDataService.message}}</p>
+            </div>
+        </div> -->
+
+    </div>
+
+</div>
+
+<!-- A mettre dans la barre de navigation ensuite (remplacer boutons actuels)-->
+<!-- <div id="buttons">
+    <ng-component *ngIf="victoire==false">  
+        <span><button id="count">Nombre de clics : {{counter}}</button></span>
+        <br><br>
+        <span><button (click)="melange()">RESTART</button></span>       
+        <span><button (click)="tricher()">TRICHER</button></span>
+    </ng-component>
+    <ng-component *ngIf="victoire==true">
+        <span><button routerLink="/end">PAR ICI CHAMPION</button></span>
+    </ng-component>
+</div> -->

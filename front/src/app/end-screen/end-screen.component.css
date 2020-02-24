@@ -1,0 +1,161 @@
+/* REMARQUES */
+
+/* Certaines propriétés se sont surement chevauchées: est-ce très important/grave ?  */
+
+h1{
+    text-align: center;
+    color: #1f4973
+}
+
+
+/* DIVISER LE TAB EN 2 SPAN  */
+mat-sidenav-container{
+    text-align: center;
+}
+mat-sidenav-container > span{/*Plus très utile sans span*/
+    display: inline-block;
+    vertical-align: top;    /*Cette fonction est géniale !!!*/
+    margin: auto 1em auto 1em;
+}
+
+/************/
+/*FORMULAIRE*/
+/************/
+
+form {
+    /* Uniquement centrer le formulaire sur la page */
+    margin: 0 auto;
+    width: 490px;
+    /* Encadré pour voir les limites du formulaire */
+    padding: 1em;
+    border: 3px solid #1f4973;
+    border-radius: 1em;
+    margin-bottom: 1em;
+  }
+#text-form{
+    text-align: center;
+    color: #1f4973;
+}
+
+  label {
+    /* Pour être sûrs que toutes les étiquettes ont même taille et sont correctement alignées */
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+    color: #1f4973;
+    font-weight: bold;
+  }
+  input, textarea {
+    /* Pour s'assurer que tous les champs texte ont la même police.
+       Par défaut, les textarea ont une police monospace */
+    font: 1em sans-serif;
+  
+    /* Pour que tous les champs texte aient la même dimension */
+    width: 300px;
+    box-sizing: border-box;
+  
+    /* Pour harmoniser le look & feel des bordures des champs texte */
+    border: 1px solid #999;
+    margin-left: 20px;
+  }
+  .form-button-container {
+    text-align: center;
+    margin-top: 1em;
+  }
+  .form-button{
+    text-align: center;
+    font-weight: bold;
+    font-size: medium;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+
+    height: 50px;
+    width: 170px;
+    border-radius: 20px;
+    border: 3px solid #1f4973;
+    color: #1f4973;
+  }
+  .form-button:hover{
+    background-color: #1f4973;
+    color:white;
+  }
+/***********/
+/* BOUTONS */
+/***********/
+
+/* COPIÉ COLLÉ DE DESKCOMPONENT (PARTIEL) */
+#buttons{
+    text-align:center;
+    background-color: white;
+}
+#buttons button{
+    text-align: center;
+    background-color:#d33134;
+    color:white;
+    font-weight: bold;
+    font-size: medium;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+
+    margin-left: 5px;
+    margin-right: 5px;
+
+    height: 50px;
+    width: 170px;
+    border-radius: 20px;
+    border: 3px solid #1f4973;
+}
+#buttons button:hover{
+    background-color: #1f4973;
+}
+        /* FIN COPIÉ */
+#buttons a{
+    color:white;
+    text-decoration: none ;
+}
+
+/************************/
+/* RÉSULTATS/CLASSEMENT */
+/************************/
+.rouge{
+    background-color: #d33134;
+}
+.bleu{
+    background-color: #1f4973;
+}
+#results{
+    border-radius: 20px;
+    color:white;
+    /* height: 30px; */
+    width:100%;
+    margin: 5px auto 5px;
+    text-align: center;
+}
+#results > span{
+    margin: auto 1em auto 1em;
+    text-align: left;
+    width:33%;
+}
+.imageUser{
+    width: 10%;
+    vertical-align: bottom;
+}
+#results p{
+    display:inline-block;
+    margin-left:5%;
+    margin-right: 5%;
+}
+/*.results-container h2{
+    font-weight: bold;
+    color: #1f4973;
+    text-align: center;
+}*/
+.h2 /*div du h2*/ {
+    margin: 0 auto;
+    width: 490px;
+    border: 3px solid #1f4973;
+    border-radius: 20px;
+
+    font-weight: bold;
+    color: #1f4973;
+    text-align: center;
+    padding: 1em;
+}

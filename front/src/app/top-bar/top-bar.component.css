@@ -1,0 +1,61 @@
+/* #top-bar{
+    /* display: inline-flex;
+    background-color: #1f4973;
+    width: 100%;
+    margin-bottom: 2em;
+    color:white; */
+    /* margin:1em 3em 3em 3em; 
+}*/
+
+mat-grid-tile-header{
+}
+mat-grid-list{
+    /* margin:1em 3em 3em 3em; */
+    margin-bottom: 2em;
+    background-color: #1f4973;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+mat-grid-tile{
+    text-align: center;
+    /* display:flex; */
+    /* margin: 0 auto; */
+    /* position: relative; */
+    width:20%;
+}
+/* #top-bar >div{
+    width:33%;
+    vertical-align: top;
+} */
+
+.title{
+    margin:0 auto;
+    text-align: center;
+}
+.imageUser{
+    width: 10%;
+    vertical-align: bottom;
+}
+.appartionUser{
+    /* display: inline-flex; */
+    text-align: center;
+}
+/* #username h3{                    /*Pas réussi à centrer la div username à gauche :'( */
+    /* text-align: left;
+    /* padding-right: 3em;
+} */
+
+/* .appartionUser span{
+    margin: 0 2em;
+    vertical-align: center;
+    width: 33%;
+} */
+
+/* span h2{
+    margin: 0em;
+    margin-top: 0.4em;
+    margin-bottom: 0.5em;
+}
+span h3{
+    margin: 0em;
+} */
