@@ -1,11 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Piece } from '../piece';
 import { Store } from 'src/app/services/store.service'; //on ajoute la donnée au service TransefertData (BDD interne)
-// import { RouterModule, Routes, Router } from '@angular/router';        //ROUTER
-// import { Subject } from 'rxjs';
 import { RoutingService } from '../services/routing.service';
 
-// import { newGame } from '../user-observable';
 
 @Component({
   selector: 'app-desk',
@@ -13,11 +10,6 @@ import { RoutingService } from '../services/routing.service';
   styleUrls: ['./desk.component copy.css']
 })
 export class DeskComponent implements OnInit {
-  //CurrentUser properties -> JE NE SAIS PAS À QUOI ILS SERVENT SUR CE COMPOSANT
-  username: string
-  score: number
-  victories: number
-  
   idNoir: number;
   victoire : boolean = false; // Permet de définir quand arreter de prendre en compte les clicks sur le plateau
   pieces: Piece[];
@@ -29,22 +21,15 @@ export class DeskComponent implements OnInit {
   constructor(
     public store: Store,
     private routingService: RoutingService,
-    // private newGame: newGame,
     ) { 
     // this.init()
   }
 
   ngOnInit() {
     // Si pas de user -> redirection vers la page de login
-    if (this.store.currentUser === undefined){
+    if (!this.store.currentUser){
       this.routingService.goToLogin()
     }
-    //subscribes 
-    this.store.userSubject.subscribe((user)=> {
-    this.username=user.username
-    this.score=user.score
-    this.victories=user.victories
-    })
     //initialisation du jeu: mélange (contient la fonction init)
     this.melange()
   }
@@ -56,9 +41,7 @@ export class DeskComponent implements OnInit {
     }
     this.idNoir = 8;
     this.victoire=false; // Voire implementations
-    console.log(this.store.currentUser)
-    console.log(this.store.currentUser.score)
-    this.store.currentUser.score=0
+    this.store.currentUser.score=0    //Utile ? -> déja initialisé à la création : sert surement uniquement lorsque l'on veut rejouer pour réinitialiser
     this.store.userSubject.next(this.store.currentUser)
     this.store.message =""
   }
@@ -84,7 +67,6 @@ mouvement(id:number):void{
       this.testVictoire() //Si cette fct est appellée uniquement ici, il pourrait être judicieux de la développer ici
       return   
       //permet de sortir de la fonction (=break pour loops)   
-      //permet d'éviter "deplacementEffectue" -> il faudrait alors déplacer l'appel de test victoire
     }
     if (id==idNoir){
       this.store.message="Il faut cliquer sur une case à coté pour que ça bouge"
@@ -99,10 +81,8 @@ mouvement(id:number):void{
 }
 
 /**
- *  ÉCHANGE DANS ARRAY
+ *  ÉCHANGE POSITIONS DANS ARRAY (=GRILLE)
  */
-
-
 echange(id1:number,id2:number):void{
   //On échange juste les images 
   // 1- On échange les positions dans le array pieces
@@ -119,7 +99,6 @@ echange(id1:number,id2:number):void{
 /**
  *  TEST VICTOIRE
  */
-
 testVictoire():void {
   let counter: number = 0;
   for (let i = 0; i < this.pieces.length; i++) {
@@ -132,14 +111,11 @@ testVictoire():void {
     this.store.message="FÉLICITATIONS"
     this.victoire= true
 
-    this.username=this.store.currentUser.username
-    this.score=this.store.currentUser.score
-    this.victories=this.store.currentUser.victories
-
     //Maj BDD avec données CurrentUser et maj victoires de chacune des parties de cet user
-    this.store.addData(this.username,this.score,this.victories)
-    this.store.majVictories(this.store.currentUser.username)  //Augmente de 1 le nb de victoire de l'utilisateur ( pour toutes ses parties)
-    // JE NE SAIS PAS SI C'EST UTILE PUISQUE ON CHANGE DE PAGE LORSQUE VICTOIRE...  
+    console.log("trying to add victory")
+    this.store.victoriesUp()  //Augmente de 1 le nb de victoire de l'utilisateur
+    console.log("trying to add result")
+    this.store.addResult().subscribe(r=>console.log(r))
     setTimeout(()=>{this.routingService.goToEnd()},1500)   //Redirection vers end screen avec petit délais
   } 
 }
@@ -148,7 +124,6 @@ testVictoire():void {
  *  MÉLANGE -> Va devenir la fonction INIT
  * voir pour recommenter
  */
-
   melange(): void{
     this.init() //On reconstruit DeskComponent (surtout pieces mais idNoir doit être remis à 8 sinon problème)
 
@@ -182,7 +157,6 @@ testVictoire():void {
 /**
  *  TRICHER
  */
-
   tricher(){
     this.init()
     this.idNoir=7

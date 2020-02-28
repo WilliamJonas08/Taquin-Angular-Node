@@ -1,10 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { Store } from 'src/app/services/store.service' //Récupérer la donnée counter
+import { Store} from 'src/app/services/store.service'
 import { User } from '../user';
 import { TranslatePipe } from '../pipes/translate.pipe';
 import { RoutingService } from '../services/routing.service';
 
-// import { newGame } from '../user-observable';
+
 
 @Component({
   selector: 'app-end-screen',
@@ -13,22 +13,24 @@ import { RoutingService } from '../services/routing.service';
   providers: [TranslatePipe],
 })
 export class EndScreenComponent implements OnInit {
-  //CurrentUser properties
+  //CurrentUser properties  -> ne sert pas vraiment à grand chose, on pourrait les remplacer par this.store.currentUser
   username: string
   score: number
   victories: number
 
-  tabDonnees:User[]
-  // //IMPORTER DONNÉES OBSERVABLE
-  // currentUser :User = this.store.currentUser // On l'importe mais on peut y accéder via le service directement
+  public tabDonnees:User[]
 
 
   constructor(
     public store: Store,
     private routingService: RoutingService,
-    // private newGame: newGame,
+    // private http: HttpService,
     ) {
-      this.tabDonnees = this.store.getData();
+      this.store.getResults().subscribe(res=>{      // PAS DE PB si jamais on récupère pas encore tabDonnées ?
+        console.log(res)
+        this.tabDonnees = res
+      });
+
     }
 
   ngOnInit() {
@@ -37,15 +39,17 @@ export class EndScreenComponent implements OnInit {
       this.routingService.goToLogin()
     }
     //subscribes 
-    this.store.userSubject.subscribe((user:User)=> {
-      this.username=user.username
-      this.score=user.score
-      this.victories=user.victories
-    })
+    // this.store.userSubject.subscribe((user:User)=> {
+    //   this.username=user.username
+    //   this.score=user.score
+    //   this.victories=user.victories
+    // })
+    
   }
 
   rejouer(){
-    this.store.createNewUser("")
+    this.store.createCurrentUser("")
+    this.routingService.goToLogin()
   }
 
 }

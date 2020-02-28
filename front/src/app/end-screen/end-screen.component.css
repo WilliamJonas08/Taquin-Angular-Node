@@ -6,16 +6,21 @@ h1{
     text-align: center;
     color: #1f4973
 }
+p{
+    color: #1f4973;
+    text-align: center;
+
+}
 
 
 /* DIVISER LE TAB EN 2 SPAN  */
 mat-sidenav-container{
     text-align: center;
 }
-mat-sidenav-container > span{/*Plus très utile sans span*/
+mat-sidenav-content > span{/*Plus très utile sans span*/
     display: inline-block;
     vertical-align: top;    /*Cette fonction est géniale !!!*/
-    margin: auto 1em auto 1em;
+    margin: auto 1em 1em 1em;
 }
 
 /************/
@@ -116,23 +121,23 @@ form {
 /* RÉSULTATS/CLASSEMENT */
 /************************/
 .rouge{
-    background-color: #d33134;
+    background-color: #3379be;
+    /* background-color: #d33134; */
 }
 .bleu{
     background-color: #1f4973;
 }
 #results{
     border-radius: 20px;
-    color:white;
     /* height: 30px; */
-    width:100%;
-    margin: 5px auto 5px;
-    text-align: center;
+    /* width:100%; */
+    margin: 0.5em auto 0.5em;
+    /* text-align: center; */
 }
 #results > span{
-    margin: auto 1em auto 1em;
+    /* margin: auto 1em auto 1em;
     text-align: left;
-    width:33%;
+    width:33%; */
 }
 .imageUser{
     width: 10%;
@@ -142,6 +147,7 @@ form {
     display:inline-block;
     margin-left:5%;
     margin-right: 5%;
+    color:white;
 }
 /*.results-container h2{
     font-weight: bold;
@@ -150,7 +156,7 @@ form {
 }*/
 .h2 /*div du h2*/ {
     margin: 0 auto;
-    width: 490px;
+    width: 30em;
     border: 3px solid #1f4973;
     border-radius: 20px;
 
@@ -158,4 +164,9 @@ form {
     color: #1f4973;
     text-align: center;
     padding: 1em;
+}
+.results-container{
+    margin: 0 auto;
+    /* text-align: center; */
+    width: 30em;
 }

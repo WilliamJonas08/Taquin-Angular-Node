@@ -8,58 +8,75 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HttpService {
-
+  // private store: Store // J'AI PEUR DE NE PAS POUVOIR UTILISER LE STORE
   constructor(
     private http: HttpClient,
-    public store: Store,
+    private store: Store,
     ) { }
 
-  //Permet de récupérer les résultats sous forme de liste de User
-  getResults():User[] {
-    //Faut il stringifier puis parser ?
-    const dataResults = JSON.stringify(this.http.get('/results')); // est-ce la bonne url ? -> est ce que on les récupère tous comme ça ?
-    return JSON.parse(dataResults)
+  try(){
+    this.http.get(`http://localhost:3000/service/try`).subscribe(res => {
+      console.log(res)
+      return res
+    })
+  }
+ 
+  //Permet de récupérer les résultats sous this.console.log("http firts")forme de liste de User
+  getResults():Observable<User[]>{
+   return this.http.get<User[]>('http://localhost:3000/service/results')
+   // la on doit subscribe lors de chaque appel de cette fonction dans les différents composants
+   // OU .toPromise() ici et await lors de l'appel dans les composants ( mais pas les propriétés des observables si on choisit cette solution)
   }
 
-  // A appeller lorsque une partie est terminée
-  addResult():Observable<Object>{
-    if (this.store.isNewUser(this.store.currentUser.username))
-      return this.http.post(`/results/${this.store.currentUser.username}`, this.store.currentUser); // est-ce la bonne url ?
-    //else (ancien user)
-        return this.updateUserResult(this.store.currentUser.username);
-  }
-
-  //Mise à jour du résultat d'un joueur déja existant
-  updateUserResult(username:string):Observable<Object>{
-    const latestScore: number = this.getLatestScore(username) // mettre await ?
-    //record battu 
-    if (this.store.currentUser.score >= latestScore){
-      return this.http.put(`/results/${username}`, this.store.currentUser);
-    } 
-    //record non battu -> on incrémente de 1 le nombre de victoires
-    else{
-      return this.http.put(`/results/${username}`, {
-        username: username,
-        score: latestScore, 
-        victories: this.store.currentUser.victories+1, // mettre +1 si le nb de victoires du current user n'a pas déja été incrémenté lors du passage vers le end screen
-      });
-    }
-
-  }
-  // Récupère l'ancien score réalisé par le user
-  getLatestScore(username:string):number{
-    const results = this.getResults();
-    //On cherche l'index de l'User dans results
-    let i = 0
-    while (username !== results[i].username){
-      i++
-      //simple sécurité -> utile ?
-      if (i >=results.length){
-        console.error('error')
-        return -1;        
+  //Ajoute currentUser à la BDD suite à une victoire
+  addResult():void{
+    this.isNewUser(this.store.currentUser.username).subscribe(res=>{ 
+      if(res){
+        return this.http.post<void>(`http://localhost:3000/service/results/${this.store.currentUser.username}`, this.store.currentUser);
       }
-    };
-    return results[i].score
+      else {  // (ancien user)
+        return this.updateUserResult(this.store.currentUser.username);
+      }
+    })
   }
 
+  //Mise à jour du résultat d'un joueur déja existant (que l'on suppose déja existant (pas de test de sécurité))
+  updateUserResult(username:string):void{   
+    this.getLatestScore(username).subscribe(res=>{
+      const latestScore: number= res 
+      //record battu 
+      if (this.store.currentUser.score >= latestScore){ // attention on a supposé ici que la victoire a déja été incrémentée dans le currentUser
+        // console.log("Case updated successfully (new record:Observable<void>): ")
+        return this.http.put<void>(`http://localhost:3000/service/results/${username}`, this.store.currentUser)
+      } 
+      //record non battu -> on incrémente de 1 le nombre de victoires
+      else{
+        // console.log("Case updated successfully : ")
+        return this.http.put<void>(`http://localhost:3000/service/results/${username}`, {
+          username: username,
+          score: latestScore, 
+          victories: this.store.currentUser.victories, // mettre +1 si le nb de victoires du current user n'a pas déja été incrémenté lors du passage vers le end screen
+        })
+      }
+    })
+  }
+
+  // Récupère l'ancien score réalisé par le user
+  getLatestScore(username:string):Observable<number>{
+    return this.http.get<number>(`http://localhost:3000/service/getlatestscore/${username}`)
+  }
+
+  // Récupère le nb de victoires réalisées par le user
+  /**
+   * TESTER EXISTENCE DE USER EN AMONT SVP
+   */
+  getVictories(username:string):Observable<number>{
+    return this.http.get<number>(`http://localhost:3000/service/getVictories/${username}`)
+  }
+
+  isNewUser(username:string):Observable<boolean>{ 
+    return this.http.get<boolean>(`http://localhost:3000/service/results/isnewuser/${username}`) //.subscribe(res=>{
+    //   return res
+    // })
+  }
 }

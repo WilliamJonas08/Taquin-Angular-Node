@@ -1,10 +1,11 @@
 <h1>{{ "Congratulations" | Translate}}</h1>
 
-<p *ngIf="this.store.currentUser"> Félicitations ! <br> Vous avez réussi le jeu en {{this.store.currentUser.score}} clicks. <br> Enregistres toi pour connaitre ton classement parmis les meilleurs mondiaux !</p>
+<p *ngIf="this.store.currentUser">Vous avez réussi le jeu en {{this.store.currentUser.score}} clicks. <br> Regardes ton classement parmis les meilleurs mondiaux !</p>
 
 <mat-sidenav-container id="global">
         <mat-sidenav-content id="buttons">
-            <span><a routerLink="" (click)="rejouer()"><button>REJOUER</button></a></span>
+            <span><a (click)="rejouer()"><button>REJOUER</button></a></span>
+            <!-- routerLink="" -->
             <span><a href="https://www.rofim.fr/" target="_blank"><button>ROFIM</button></a></span>
             <span><button (click)="this.store.resetdata()" >RESET DATA</button></span>
             <!--if user = admin Rofim -> button reset data -->
@@ -14,29 +15,33 @@
         <div class="h2"><h2>Leaderboard</h2></div>
 
         <!--Première victoire-->
-        <div class="results-container" *ngIf="((this.store.ifTabExist(tabDonnees))&&(tabDonnees.length===1))" >
-            <p>Vous etes le premier vainqueur du jeu !</p>
-            <div id="results" class="rouge" *ngFor="let donnee of tabDonnees">    
-                <span ><img class="imageUser" [attr.src]="'https://robohash.org/'+donnee.username"/></span>
-                <span class="p1"><p>Username: {{donnee.username}}</p></span>
-                <span class="p2"><p>Score: {{donnee.score}}</p></span>
-                <span class="p2"><p>Victoires: {{donnee.victories}}</p></span>
-            </div>
+        <div class="results-container" *ngIf="tabDonnees!=undefined||(this.store.currentUser.username!=undefined)" >
+            <ng-container *ngIf="tabDonnees.length===1">  <!-- Attention aux propriétés de ng-container quand meme -->
+                <p>Vous etes le premier vainqueur du jeu !</p>
+                <div id="results" class="rouge" *ngFor="let donnee of tabDonnees">    
+                    <span ><img class="imageUser" [attr.src]="'https://robohash.org/'+donnee.username"/></span>
+                    <span><p>Username: {{donnee.username}}</p></span>
+                    <span><p>Score: {{donnee.score}}</p></span>
+                    <span><p>Victoires: {{donnee.victories}}</p></span>
+                </div>
+            </ng-container>
         </div>
 
         <!--Affichage du classement si au moins 2 victoires-->
-        <div class="results-container" *ngIf="((this.store.ifTabExist(tabDonnees))&&(tabDonnees.length>1))">
-            <!-- class="results" -->
-            <div id="results" *ngFor="let donnee of tabDonnees" [ngClass]="{
-                'rouge': ((this.username !==undefined )&&(donnee.username===this.username)),
-                'bleu': !((this.username !==undefined )&&(donnee.username===this.username))
-            }">
-                <span ><img class="imageUser" [attr.src]="'https://robohash.org/'+donnee.username"/></span>
-                <span class="p1"><p>Username: {{donnee.username}}</p></span>
-                <span class="p2"><p>Score: {{donnee.score}}</p></span>
-                <span class="p2"><p>Victoires: {{donnee.victories}}</p></span>
-            </div>
+        <div class="results-container" *ngIf="(tabDonnees!=undefined)||(this.store.currentUser.username!=undefined)">
+            <ng-container *ngIf="tabDonnees.length>1">
+                <div id="results" *ngFor="let donnee of tabDonnees" [ngClass]="{
+                    'rouge': ((this.store.currentUser.username !==undefined )&&(donnee.username===this.store.currentUser.username)),
+                    'bleu': !((this.store.currentUser.username !==undefined )&&(donnee.username===this.store.currentUser.username))
+                }">
+                    <span ><img class="imageUser" [attr.src]="'https://robohash.org/'+donnee.username"/></span>
+                    <span><p>Username: {{donnee.username}}</p></span>
+                    <span><p>Score: {{donnee.score}}</p></span>
+                    <span><p>Victoires: {{donnee.victories}}</p></span>
+                </div>
+            </ng-container>
         </div>
+
     </mat-sidenav-content> <!--A SUPPRIMER ENSUITE-->
     <!-- </mat-sidenav> -->
 </mat-sidenav-container>

@@ -1,0 +1,16 @@
+new String("0") === "0"  // false -> why ?
+find({criteres}) renvoies une erreur contrairement à findOne({criteres})
+
+QUESTIONS ACTUELLES:
+- header pb
+
+
+A FAIRE
+----PROBLEME----
+length of tabDonnée (undefined) dans le end composent alors qu'il est clairement défini (ou alors pas encore généré ???)
+
+----DESIGN-----
+- aligner verticalement les différentes propriétés pour les résultats utilisateurs
+- afficher la bonne div en bleu clair lors de l'affichage des résultats ( problème de sélection de this.username dans le endcomponent ?)
+- rendre l'appli responsive ( données top-bar + desk + autres)
+- trier par best score ( juste retraiter "tabDonnées")

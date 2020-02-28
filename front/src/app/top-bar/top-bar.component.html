@@ -28,9 +28,8 @@
 <mat-grid-tile-header id="top-bar">
 
   <!-- INFOS USER -->
-  <mat-grid-list cols="9" rowHeight = "6em" class="tile-header"  *ngIf='(this.username) && (this.username !==" ") '>
+  <mat-grid-list cols="9" rowHeight = "6em" class="tile-header"  *ngIf='(this.username) && (this.username !=="") '>
       <!-- <mat-grid-tile class="appartionUser" >
-        
       </mat-grid-tile> -->
 
       <mat-grid-tile class="appartionUser" colspan="3"> <!--Teste l'existence d'un currentUser-->
@@ -59,7 +58,7 @@
   </mat-grid-list> 
 
   <!-- PAS INFOS USER -->
-  <mat-grid-list cols="1" rowHeight = "6em" class="tile-header"  *ngIf='(!this.username) || (this.username ===" ") '>
+  <mat-grid-list cols="1" rowHeight = "6em" class="tile-header"  *ngIf='(!this.username) || (this.username ==="") '>
     <mat-grid-tile class="title">
       <h1>{{title}}</h1> <!--Title-->
     </mat-grid-tile> 

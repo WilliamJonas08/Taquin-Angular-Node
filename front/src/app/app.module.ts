@@ -7,6 +7,7 @@ import { PieceComponent } from './piece/piece.component';
 import { EndScreenComponent } from './end-screen/end-screen.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes, Router} from '@angular/router' // ?? Déja appelé dans app-routing (importé et exporté via @NgModule)
+import { HttpClientModule } from '@angular/common/http';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from './pipes/translate.pipe';
@@ -20,8 +21,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 
-import { GLOBALComponent } from './global/global.component'; // Component test
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +30,6 @@ import { GLOBALComponent } from './global/global.component'; // Component test
     TranslatePipe,
     LoginScreenComponent,
     TopBarComponent,
-
-    GLOBALComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +42,7 @@ import { GLOBALComponent } from './global/global.component'; // Component test
     MatCardModule,
     MatButtonModule,
     MatSidenavModule,
+    HttpClientModule,
     // Router,//Je le met la au cas ou mais il est déja importé dans app-rooting
 
   ],
